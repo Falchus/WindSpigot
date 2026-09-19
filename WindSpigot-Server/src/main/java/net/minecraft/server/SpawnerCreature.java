@@ -125,10 +125,10 @@ public final class SpawnerCreature {
 					 * CraftBukkit - use per-world limits
 					 */
 
-					if ((mobcnt = getEntityCount(worldserver, enumcreaturetype.a())) <= limit * i / 256) {
+					if ((mobcnt = getEntityCount(worldserver, enumcreaturetype.a())) <= limit * i / a) {
 						Iterator iterator1 = this.b.iterator();
 
-						int moblimit = (limit * i / 256) - mobcnt + 1; // Spigot - up to 1 more than limit
+						int moblimit = (limit * i / a) - mobcnt + 1; // Spigot - up to 1 more than limit
 						label115: while (iterator1.hasNext() && (moblimit > 0)) { // Spigot - while more allowed
 																					// CraftBukkit start = use LongHash
 																					// and LongObjectHashMap
