@@ -861,7 +861,7 @@ public class Chunk {
 			i = this.entitySlices.length - 1;
 		}
 
-		if (!this.entitySlices[i].remove(entity)) return; // PandaSpigot
+		this.entitySlices[i].remove(entity);
 		// PaperSpigot start - update counts
 		if (entity instanceof EntityItem) {
 			itemCounts[i]--;
