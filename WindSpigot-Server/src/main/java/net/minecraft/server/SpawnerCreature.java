@@ -20,27 +20,23 @@ public final class SpawnerCreature {
 	}
 
 	// Spigot start - get entity count only from chunks being processed in b
-	private int getEntityCount(WorldServer server, Class oClass) {
-		// PandaSpigot start - use entire world, not just active chunks. Spigot broke vanilla expectations.
-		int sum = 0;
-		for (Chunk c : server.chunkProviderServer.chunks.values()) {
-			sum += c.entityCount.getInt(oClass); // SportPaper: trove -> fastutil
-		}
-		return sum;
-		// PandaSpigot end
-//        int i = 0;
-//        Iterator<Long> it = this.b.iterator();
-//        while ( it.hasNext() )
-//        {
-//            Long coord = it.next();
-//            int x = LongHash.msw( coord );
-//            int z = LongHash.lsw( coord );
-//            if ( !server.chunkProviderServer.unloadQueue.contains( coord ) && server.isChunkLoaded( x, z, true ) )
-//            {
-//                i += server.getChunkAt( x, z ).entityCount.get( oClass );
-//            }
-//        }
-//        return i;
+	private int getEntityCount(WorldServer server, Class<? extends IAnimal> oClass) {
+        int i = 0;
+        Iterator<Long> it = this.b.iterator();
+        while (it.hasNext()) {
+            Long coord = it.next();
+            int x = LongHash.msw(coord);
+            int z = LongHash.lsw(coord);
+            if (!server.chunkProviderServer.unloadQueue.contains(coord) && server.isChunkLoaded(x, z, true)) {
+                // FalchusSpigot start
+                Chunk chunk = server.getChunkAt(x, z);
+                if (chunk != null) {
+                // FalchusSpigot end
+                    i += chunk.entityCount.getInt(oClass);
+                }
+            }
+        }
+        return i;
 	}
 	// Spigot end
 
@@ -58,7 +54,7 @@ public final class SpawnerCreature {
 			while (iterator.hasNext()) {
 				EntityHuman entityhuman = iterator.next();
 
-				if (!entityhuman.isSpectator() || !entityhuman.affectsSpawning) { // PaperSpigot
+				if (!entityhuman.isSpectator() && entityhuman.affectsSpawning) { // PaperSpigot
 					int l = MathHelper.floor(entityhuman.locX / 16.0D);
 
 					j = MathHelper.floor(entityhuman.locZ / 16.0D);
