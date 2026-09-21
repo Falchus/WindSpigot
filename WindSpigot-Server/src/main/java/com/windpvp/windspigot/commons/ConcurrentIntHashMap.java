@@ -1,6 +1,6 @@
 package com.windpvp.windspigot.commons;
 
-import net.minecraft.server.*;
+import net.minecraft.server.IntHashMap;
 
 public class ConcurrentIntHashMap<V> extends IntHashMap<V> {
 
