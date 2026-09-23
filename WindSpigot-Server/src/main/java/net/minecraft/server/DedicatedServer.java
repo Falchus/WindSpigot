@@ -519,9 +519,7 @@ public class DedicatedServer extends MinecraftServer implements IMinecraftServer
 		ServerConnection.EventGroupType transport = ServerConnection.EventGroupType.NIO;
 		if (ai())
 		/* use-native-transport */ {
-			if (IoUring.isAvailable()) {
-				transport = ServerConnection.EventGroupType.IO_URING;
-			} else if (Epoll.isAvailable()) {
+			if (Epoll.isAvailable()) {
 				transport = ServerConnection.EventGroupType.EPOLL;
 			} else if (KQueue.isAvailable()) {
 				transport = ServerConnection.EventGroupType.KQUEUE;
