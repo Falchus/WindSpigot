@@ -217,7 +217,7 @@ public class CannonTrackerEntry extends EntityTrackerEntry {
 			Packet<?> packet = this.c();
 			if (packet == null) return; // FalchusSpigot
 
-			this.trackedPlayerMap.put(entityplayer, true); // PaperBukkit // FalchusSpigot - after null check
+			this.trackedPlayerMap.put(entityplayer, true); // Paper // FalchusSpigot - after null check
 			
 			queuePacket(entityplayer, packet, trackerThread, immediate, queue);
 
