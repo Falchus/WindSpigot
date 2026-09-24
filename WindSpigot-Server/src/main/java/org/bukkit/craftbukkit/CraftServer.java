@@ -560,7 +560,13 @@ public final class CraftServer implements Server {
 
 	@Override
 	public int broadcastMessage(String message) {
-		return broadcast(message, BROADCAST_CHANNEL_USERS);
+        // FalchusSpigot start
+        for (Player player : getOnlinePlayers()) {
+            player.sendMessage(message);
+        }
+        return getOnlinePlayers().size();
+//        return broadcast(message, BROADCAST_CHANNEL_USERS);
+        // FalchusSpigot end
 	}
 
 	public Player getPlayer(final EntityPlayer entity) {
