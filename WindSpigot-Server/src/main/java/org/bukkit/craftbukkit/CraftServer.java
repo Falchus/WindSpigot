@@ -561,10 +561,11 @@ public final class CraftServer implements Server {
 	@Override
 	public int broadcastMessage(String message) {
         // FalchusSpigot start
-        for (Player player : getOnlinePlayers()) {
+		List<CraftPlayer> players = getOnlinePlayers();
+        for (Player player : players) {
             player.sendMessage(message);
         }
-        return getOnlinePlayers().size();
+        return players.size();
 //        return broadcast(message, BROADCAST_CHANNEL_USERS);
         // FalchusSpigot end
 	}
