@@ -1555,8 +1555,15 @@ public final class CraftServer implements Server {
 		if (result == null) {
 			result = offlinePlayers.get(id);
 			if (result == null) {
-				result = new CraftOfflinePlayer(this, new GameProfile(id, null));
-				offlinePlayers.put(id, result);
+                // FalchusSpigot start - fix like above
+                GameProfile profile = null;
+                // Only fetch an online UUID in online mode
+                if (MinecraftServer.getServer().getOnlineMode() || org.spigotmc.SpigotConfig.bungee) {
+                    profile = MinecraftServer.getServer().getUserCache().getProfile(id);
+                }
+                // Make an OfflinePlayer using a UUID since the profile has no name
+                result = getOfflinePlayer(Objects.requireNonNullElseGet(profile, () -> new GameProfile(id, null)));
+                // FalchusSpigot end
 			}
 		} else {
 			offlinePlayers.remove(id);
